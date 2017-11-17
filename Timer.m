@@ -1,6 +1,10 @@
 classdef Timer < handle
-   % Timer smart tic-toc measurements
-
+   % Timer single node of Timers
+   %
+   % Lukas Pospisil (USI Lugano)
+   % published under MIT Licence, 2017
+   %
+   
    properties(SetAccess = private)
       name   % name of timer (for futher reference)
       value  % sum of times between start() and stop()

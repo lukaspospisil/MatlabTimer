@@ -55,6 +55,16 @@ classdef Timer < handle
           % check if the timer is running or not
           out = mytimer.running;
       end
+
+      function out = get_value(mytimer)
+          % check if the timer is running or not
+          out = mytimer.value;
+      end      
+
+      function out = get_name(mytimer)
+          % check if the timer is running or not
+          out = mytimer.name;
+      end 
       
       function print(mytimer)
           % print values of this timer

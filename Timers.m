@@ -51,7 +51,7 @@ classdef Timers < handle
          end
       
          if ~found
-            disp(['Warning: Timer ' mytimer.name ' is not running'])
+            disp(['Warning: Timer ' name ' is not running'])
             % do nothing
          end
       end
@@ -72,5 +72,87 @@ classdef Timers < handle
             mytimers.list_of_timers{i}.print(); 
          end
       end
+      
+      function out = get_value(mytimers,name)
+         % start timer identified by name  
+
+         % go through list of timers and find the appropriate one
+         found = false;
+         found_idx = -1;
+         for i=1:length(mytimers.list_of_timers)
+            if mytimers.list_of_timers{i}.ismyname(name)
+                found = true;
+                found_idx = i;
+            end
+         end
+      
+         if ~found
+            disp(['Warning: Timer ' name ' does not exist'])
+            out = 0;
+         else
+            out = mytimers.list_of_timers{found_idx}.get_value();
+         end
+      end
+
+      function out = isrunning(mytimers,name)
+         % check if the timer is running or not
+
+         % go through list of timers and find the appropriate one
+         found = false;
+         found_idx = -1;
+         for i=1:length(mytimers.list_of_timers)
+            if mytimers.list_of_timers{i}.ismyname(name)
+                found = true;
+                found_idx = i;
+            end
+         end
+      
+         if ~found
+            disp(['Warning: Timer ' name ' does not exist'])
+            out = false;
+         else
+            out = mytimers.list_of_timers{found_idx}.isrunning();
+         end
+      end      
+      
+      function out = get_values(mytimers)
+         % return values of timers as vector
+         
+         out = zeros(1,length(mytimers.list_of_timers));
+         for i=1:length(mytimers.list_of_timers)
+             out(i) = mytimers.list_of_timers{i}.get_value();
+         end
+      end
+      
+      function out = get_names(mytimers)
+         % return names of timers as cell
+         
+         out = cell(1,length(mytimers.list_of_timers));
+         for i=1:length(mytimers.list_of_timers)
+             out{i} = mytimers.list_of_timers{i}.get_name();
+         end
+      end
+      
+      function out = get_timer(mytimers,name)
+         % return timer identified by name
+         
+         % go through list of timers and find the appropriate one
+         found = false;
+         found_idx = -1;
+         for i=1:length(mytimers.list_of_timers)
+            if mytimers.list_of_timers{i}.ismyname(name)
+                found = true;
+                found_idx = i;
+            end
+         end
+      
+         if ~found
+            disp(['Warning: Timer ' name ' does not exist'])
+            out = [];
+         else
+            out = mytimers.list_of_timers{found_idx};
+         end
+      end
+      
    end
 end

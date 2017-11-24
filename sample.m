@@ -47,3 +47,11 @@ mytimers.stop('all');
 
 %% PRINT MEASURED TIMES
 mytimers.print();
+
+%% TEST .GET METHODS
+mytimers.get_value('all') % get value of timer with name 'all'
+
+mytimers.get_values() % get vector with values
+mytimers.get_names() % get cell of all names
+
+mytimers.isrunning('all') % check if timer with name 'plot' is running

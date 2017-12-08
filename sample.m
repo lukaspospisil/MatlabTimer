@@ -5,7 +5,8 @@ clear all
 
 % create timers for measuring time
 global mytimers
-mytimers = Timers();
+%mytimers = Timers();
+mytimers = Timers('buffer');
 
 % start to measure whole application run
 mytimers.start('all');
@@ -53,5 +54,6 @@ mytimers.get_value('all') % get value of timer with name 'all'
 
 mytimers.get_values() % get vector with values
 mytimers.get_names() % get cell of all names
+mytimers.get_types() % get type of this timer
 
 mytimers.isrunning('all') % check if timer with name 'plot' is running

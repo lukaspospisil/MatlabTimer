@@ -13,12 +13,19 @@ classdef Timers < handle
    
     properties(Access = private)
       list_of_timers  % here store called timers
+      types           % types of timers (additive or buffer)
    end
    
    methods
-      function timers = Timers()
+      function timers = Timers(varargin)
          % constructor - initialize list of timers
          timers.list_of_timers = cell(0);
+         
+         if nargin == 1
+            timers.types = varargin{1}; 
+         else
+             timers.types = 'additive'; % default value
+         end
       end
       
       function start(mytimers,name)
@@ -35,7 +42,7 @@ classdef Timers < handle
       
          if ~found
             % this is a new timer, create it and run
-            mytimers.list_of_timers{length(mytimers.list_of_timers) + 1} = Timer(name);
+            mytimers.list_of_timers{length(mytimers.list_of_timers) + 1} = Timer(name,mytimers.types);
             mytimers.list_of_timers{length(mytimers.list_of_timers)}.start();
          end
       end
@@ -120,7 +127,7 @@ classdef Timers < handle
          
          out = zeros(1,length(mytimers.list_of_timers));
          for i=1:length(mytimers.list_of_timers)
-             out(i) = mytimers.list_of_timers{i}.get_value();
+             out(i) = sum(mytimers.list_of_timers{i}.get_value());
          end
       end
       
@@ -130,6 +137,15 @@ classdef Timers < handle
          out = cell(1,length(mytimers.list_of_timers));
          for i=1:length(mytimers.list_of_timers)
              out{i} = mytimers.list_of_timers{i}.get_name();
+         end
+      end
+
+      function out = get_types(mytimers)
+         % return types of timers as cell
+         
+         out = cell(1,length(mytimers.list_of_timers));
+         for i=1:length(mytimers.list_of_timers)
+             out{i} = mytimers.list_of_timers{i}.get_type();
          end
       end
       
